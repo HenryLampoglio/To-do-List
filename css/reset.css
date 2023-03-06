@@ -6,4 +6,7 @@
     border: none;
     color: black;
   }
-  
+
+*:focus {
+    outline: none;
+} 
