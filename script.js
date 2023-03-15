@@ -7,6 +7,12 @@ const tblBody = document.querySelector("tbody");
 
 let today = new Date();
 
+const formatDate = (dateUTC) =>
+{
+    const options = {dateStyle: 'long', timeStyle: 'short'};
+    const date = new Date(dateUTC).toLocaleString('pt-br', options);
+    return date;
+}
 
 const createSelect = () =>
 {
@@ -22,14 +28,6 @@ const createSelect = () =>
         option.text = options[i];
         selectList.appendChild(option);
     }
-}
-
-
-const formatDate = (dateUTC) =>
-{
-    const options = {dateStyle: 'long', timeStyle: 'short'};
-    const date = new Date(dateUTC).toLocaleString('pt-br', options);
-    return date;
 }
 
 const createCell = () => 
