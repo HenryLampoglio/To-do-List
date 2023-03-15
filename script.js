@@ -11,8 +11,8 @@ let today = new Date();
 const createSelect = () =>
 {
     let options = ['pendente','em andamento','concluido'];
-    const cell = document.createElement("td");
-    let selectList = document.createElement('select');
+    const cell = document.querySelector("tbody tr:last-child td:nth-child(3)");
+    const selectList = document.createElement('select');
     cell.appendChild(selectList);
 
     for(let i = 0; i < options.length; i++)
@@ -45,16 +45,29 @@ const createCell = () =>
     tblBody.appendChild(row);
 }
 
-const addContent = () =>
-{
-    
-    const firstCell = document.querySelector("tbody tr:last-child td:nth-child(1)");
-    const secondCell = document.querySelector("tbody tr:last-child td:nth-child(2)");
-    const thirdCell = document.querySelector("tbody tr:last-child td:nth-child(3)");
-    const fourthCell = document.querySelector("tbody tr:last-child td:nth-child(4)");
+function addContent() {
+
+    let firstCell = document.querySelector("tbody tr:last-child td:nth-child(1)");
+    let secondCell = document.querySelector("tbody tr:last-child td:nth-child(2)");
+    let thirdCell = document.querySelector("tbody tr:last-child td:nth-child(3)");
+    let fourthCell = document.querySelector("tbody tr:last-child td:nth-child(4)");
+
+
+    firstCell.innerHTML = input.value;
+    secondCell.innerHTML = `${formatDate(today)}`;
+    thirdCell = createSelect();
+    fourthCell.innerHTML = `//`;
 }
-addEventListener("submit", (form) =>
+
+const createTask = () =>
+{
+    createCell();
+    addContent();
+}
+
+
+addEventListener("submit", (form,) =>
 {
     form.preventDefault();
-    createCell();
+    createTask();
 })
