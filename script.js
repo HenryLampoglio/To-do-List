@@ -22,7 +22,7 @@ const createCell = () =>
     tblBody.appendChild(row);
 
     let rows = document.querySelectorAll("tbody tr").length;
-    row.setAttribute("id", `${rows.toString()}`);
+    row.setAttribute("id", `n-${rows.toString()}`);
 }
 
 let today = new Date();
@@ -55,15 +55,18 @@ const createButton = () =>
 {
     const cell = document.querySelector("tbody tr:last-child td:nth-child(4)");
 
+    let rows = document.querySelectorAll("tbody tr").length;
+
     const editButton = document.createElement("button");
     editButton.classList.add("edit-button");
-
+    editButton.setAttribute("id", `n-${rows.toString()}`);
     editButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path d="M480 936v-71l216-216 71 71-216 216h-71ZM120 726v-60h300v60H120Zm690-49-71-71 29-29q8-8 21-8t21 8l29 29q8 8 8 21t-8 21l-29 29ZM120 561v-60h470v60H120Zm0-165v-60h470v60H120Z"/></svg>';
     cell.appendChild(editButton)
     editButton.addEventListener('click', editTask)
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("del-button");
+    deleteButton.setAttribute("id", `n-${rows.toString()}`);
     deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48"><path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/></svg>';
     cell.appendChild(deleteButton)
     deleteButton.addEventListener('click', deleteTask)
@@ -89,15 +92,30 @@ const createTask = () =>
     addContent();
 }
 
-const editTask = () =>
+const editTask = (evt) =>
 {
-    let editBtn = document.querySelector(".edit-button")
-    console.log(editBtn)
+    let editBtnValue = evt.currentTarget.id;
+    let editText = prompt("insira as alterações da tarefa","edite a tarefa");
+        if(editText == null || editText == "")
+        {
+            alert("você nao alterou a tarefa")
+        }
+        else
+        {
+            let editCell = document.querySelector(`tr#${editBtnValue} td:first-child`)
+            editCell.innerHTML = editText;
+        }
+    
 }
 
-const deleteTask = () =>
+const deleteTask = (evt) =>
 {
-    window.alert("clickou em delete")
+    let delBtnValue = evt.currentTarget.id;
+    let row = document.querySelector(`tr#${delBtnValue}`)
+    let Cells = document.querySelector(`tbody tr#${delBtnValue} td`);
+    
+    row.remove();
+    Cells.remove();
 }
 
 addEventListener("submit", (form) =>
