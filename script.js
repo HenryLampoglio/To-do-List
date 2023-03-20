@@ -1,18 +1,16 @@
 const form = document.querySelector(".add-form");
 const input = document.querySelector("#input");
-const editButton = document.querySelector(".edit-button");
-const deleteButton = document.querySelector(".del-button");
 const tblBody = document.querySelector("tbody");
 
 
-
+// this function will create the cells where will contains the tasks informations 
 const createCell = () => 
 {
     
     
     const row = document.createElement("tr");
     ;
-
+    // the for will creat the 4 cells of the row
     for(let i = 0; i <4; i++)
     {
         let cell = document.createElement("td")
@@ -21,12 +19,14 @@ const createCell = () =>
     }
     tblBody.appendChild(row);
 
+    //here i take the length of the rows in the tbody, and atribute to the row that is being created, to give an id to indetify the row later
     let rows = document.querySelectorAll("tbody tr").length;
     row.setAttribute("id", `n-${rows.toString()}`);
 }
 
 let today = new Date();
 
+// this function will treat the date and format to the brazilian time
 const formatDate = (dateUTC) =>
 {
     const options = {dateStyle: 'long', timeStyle: 'short'};
@@ -34,7 +34,7 @@ const formatDate = (dateUTC) =>
     return date;
 }
 
-
+// this function create a select input inside of one of the cells
 const createSelect = () =>
 {
     const options = ['pendente','em andamento','concluido'];
@@ -51,6 +51,7 @@ const createSelect = () =>
     }
 }
 
+//this function creates the two actions buttons and ad a class, an id and an eventlistener
 const createButton = () =>
 {
     const cell = document.querySelector("tbody tr:last-child td:nth-child(4)");
@@ -72,6 +73,7 @@ const createButton = () =>
     deleteButton.addEventListener('click', deleteTask)
 }
 
+// this function will take the itens created in the other function and add to the cells
 function addContent() {
 
     let firstCell = document.querySelector("tbody tr:last-child td:nth-child(1)");
@@ -86,12 +88,14 @@ function addContent() {
     fourthCell = createButton();
 }
 
+//this function just run the two creating functions
 const createTask = () =>
 {
     createCell();
     addContent();
 }
 
+// this function will target the id of the button and edit the text cell at the row with the same id
 const editTask = (evt) =>
 {
     let editBtnValue = evt.currentTarget.id;
@@ -108,16 +112,17 @@ const editTask = (evt) =>
     
 }
 
+// this function target the id of the delete button clicked and erase all the row content
 const deleteTask = (evt) =>
 {
     let delBtnValue = evt.currentTarget.id;
     let row = document.querySelector(`tr#${delBtnValue}`)
-    let Cells = document.querySelector(`tbody tr#${delBtnValue} td`);
     
     row.remove();
-    Cells.remove();
+   
 }
 
+// this eventlistener create the base task
 addEventListener("submit", (form) =>
 {
     form.preventDefault();
